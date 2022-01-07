@@ -1,0 +1,12 @@
+@media (max-width: 770px) {
+    .right {
+        float: none;
+        margin: 0px auto;
+        width: 90%;
+    }
+    .left {
+        float: none;
+        margin: 0px auto;
+        width: 90%;
+    }
+}

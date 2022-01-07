@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+import MainPage from './containers/mainpage';
+import Theme from './theme';
 // import COMPONENT from 'FILEPATH'
 
 const App = () => (
-  <div>
-    Beep boop. Hi there, I&apos;m your personal assistant :D
-  </div>
+  <Theme>
+    <MainPage />
+  </Theme>
 )
 
 export default App

@@ -1,7 +1,7 @@
 /**
  * Part 1:
- *    What will print and why?
- *    What will change if we delete line 15? Why?
+ *    What will print and why? Running function x() will print undefined since the variable a is never initialized
+ *    What will change if we delete line 15? Why? If we deleted line 15 then we would get the error that
  * 
  * Part 2:
  *    Change to ES6 syntax (use arrow functions and change var to let).
@@ -11,17 +11,18 @@
  *        console logs.
  */
 
-function x() {
-  var a;
+
+let x = () => {
+  let a = 2;
   console.log(a);
 }
 
-function y() {
-  var a = 2;
+let y = () => {
+  let a = 2;
   console.log(a);
   x();
 }
 
-var a = 1;
+let a = 1;
 console.log(a);
 y();

@@ -11,8 +11,16 @@ const verb1 = ______
 Change thses values to generate a different story
 */
 
-const story = `
-**replace this with your story using a template string**
-`
+const noun1 = "Harvard";
+const verb1 = "met";
+const adjective1 = "nice";
+const adjective2 = "interesting"
+const verb2 = "eating"
+const noun2 = "food"
+const noun3 = "Annenberg"
 
+const story = `
+At ${noun1}, I've ${verb1} many ${adjective1} people and taken incredibly ${adjective2} classes. However, 
+the best part of my experience so far has been ${verb2} great ${noun2} in ${noun3}.
+`
 console.log(story)
