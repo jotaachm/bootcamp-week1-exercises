@@ -17,8 +17,7 @@ const TableMarkup = ({ titles, data }) => (
         <thead>
             <tr>
                 {titles.map((title, index) => (
-                    <th key={index}>{title}</th>
-                ))}
+                    <th key={index}>{title}</th>))}
                 <th>Complete</th>
                 <th>Delete</th>
             </tr>
