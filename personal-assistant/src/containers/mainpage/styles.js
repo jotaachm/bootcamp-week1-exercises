@@ -9,12 +9,12 @@ export const Background = styled.div`
 `;
 
 export const Container = styled.div`
-    padding: 8%;
+    padding: 4% 8%;
 `
 
 export const StyledH1 = styled.h1`
   font-size: ${({ theme: { fontSizes } }) => fontSizes.large};
-  color: ${({ theme: { colors } }) => colors.strongCyan};
+  color: ${({ theme: { colors } }) => colors.persianGreen};
   display: block;
   text-align: center;
   margin: 0 auto 40px auto;

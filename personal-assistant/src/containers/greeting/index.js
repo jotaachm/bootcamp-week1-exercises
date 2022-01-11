@@ -4,6 +4,9 @@ import Line from '../../components/line/line';
 import { Center } from "../../components/center/center";
 import NavBar from '../../components/navBar/navBar';
 import { StyledLink } from '../../components/navBar/styles';
+import TwoImages from '../../components/img';
+import santander from './santander.png';
+import map from './map.png';
 
 const GreetingPage = () => {
 
@@ -19,7 +22,6 @@ const GreetingPage = () => {
     }, [])
 
     return (
-
         <Background>
             <NavBar></NavBar>
             <Container>
@@ -28,6 +30,7 @@ const GreetingPage = () => {
                 <Center V H>
                     <h3>The weather for today in Santander, Spain is: {weather}</h3>
                 </Center>
+                <TwoImages src1={santander} src2={map} alt1={"Santander"} alt2={"Santander in the map of Spain"}></TwoImages>
                 <Center V H>
                     <StyledLink to={'/todo'}>Take me to my personal assistant please!</StyledLink>
                 </Center>

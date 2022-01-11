@@ -1,13 +1,11 @@
 import React, { useReducer, useState } from 'react';
 import { StyledH1, Container, Background, MyTable, PrettyText } from './styles';
-// import Table from '../../components/table/table';
 import Button from '../../components/button/button';
 import Input from '../../components/input/input';
-// import Task from '../../components/task/task';
 import Line from '../../components/line/line';
-import { Center } from "../../components/center/center";
+import { Center } from '../../components/center/center';
 import NavBar from '../../components/navBar/navBar';
-// import COMPONENT from 'FILEPATH'
+import { faSearch, faCalendarAlt, faTasks } from '@fortawesome/free-solid-svg-icons';
 
 const initialState = [];
 
@@ -18,6 +16,7 @@ const initialFormState = {
 };
 
 const MainPage = () => {
+    // controls the state of the input fields when their text changes or they have to be reset
     const formReducer = (formState, action) => {
         switch (action.type) {
             case 'textChange':
@@ -31,39 +30,7 @@ const MainPage = () => {
                 return formState;
         }
     };
-
     const [formState, formDispatch] = useReducer(formReducer, initialFormState);
-
-    const reducer = (tasksState, action, index) => {
-        switch (action.type) {
-            case 'add':
-                if (!formState.description.trim()) {
-                    alert("I can't add a task if you don't describe it!");
-                    return tasksState;
-                };
-                if (!formState.duedate.trim()) {
-                    alert('Please select a duedate');
-                    return tasksState;
-                };
-                const newTask = {
-                    description: formState.description,
-                    duedate: formState.duedate,
-                }
-                const tasks = tasksState.slice().concat(newTask)
-                formDispatch({ type: 'resetForms' });
-                return tasks;
-            case 'delete':
-                const remainingTasks = tasksState.slice();
-                remainingTasks.splice(index, 1);
-                return remainingTasks;
-            default:
-                return tasksState;
-        }
-    };
-
-    const [state, dispatch] = useReducer(reducer, initialState);
-
-    const [searchState, setSearch] = useState([]);
 
     const handleTextChange = (e) => {
         formDispatch({
@@ -73,6 +40,42 @@ const MainPage = () => {
         })
     }
 
+    // controls the state of the to-do's that are added and deleted
+    const reducer = (tasksState, action, index) => {
+        switch (action.type) {
+            case 'add':
+                // prevents the user from adding empty tasks
+                if (!formState.description.trim()) {
+                    alert("I can't add a task if you don't describe it!");
+                    return tasksState;
+                };
+                if (!formState.duedate.trim()) {
+                    alert('Please select a duedate');
+                    return tasksState;
+                };
+                // adds a non-empty new task
+                const newTask = {
+                    description: formState.description,
+                    duedate: formState.duedate,
+                }
+                const tasks = tasksState.slice().concat(newTask)
+                formDispatch({ type: 'resetForms' });
+                return tasks;
+            case 'delete':
+                // delete the task selected
+                const remainingTasks = tasksState.slice();
+                remainingTasks.splice(index, 1);
+                return remainingTasks;
+            default:
+                return tasksState;
+        }
+    };
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    // controls the state of the search bar to display the tasks that are being searched
+    const [searchState, setSearch] = useState([]);
+
+    // functions that dynamically render a table with to-do's
     const tableHeader = () => {
         let headerElement = ['Task Description', 'Duedate', 'Delete']
         if (state === initialState) {
@@ -105,45 +108,32 @@ const MainPage = () => {
             <NavBar></NavBar>
             <Container>
                 <StyledH1>Your to-do's!</StyledH1>
-                <div>
-                    <Input
-                        name="search"
-                        type='text'
-                        onChange={(e) => setSearch(state.filter(({ description }) => description.includes(e.target.value)))}
-                        placeholder="Search for tasks..."
-                    />
-                    {searchState.length > 0 &&
-                        <Center V H>
-                            < MyTable >
-                                <thead>
-                                    <tr>{tableHeader()}</tr>
-                                </thead>
-                                <tbody>
-                                    {tableBody(searchState)}
-                                </tbody>
-                            </MyTable >
-                        </Center>}
-                </div>
+                <Input
+                    name="search" placeholder="Search for tasks..." icon={faSearch}
+                    onChange={(e) => setSearch(state.filter(({ description }) => description.includes(e.target.value)))} />
+
+                {/* conditionally renders the to-do's that match a concrete search */}
+                {searchState.length > 0 &&
+                    <Center V H>
+                        < MyTable >
+                            <thead>
+                                <tr>{tableHeader()}</tr>
+                            </thead>
+                            <tbody>
+                                {tableBody(searchState)}
+                            </tbody>
+                        </MyTable >
+                    </Center>}
                 <Line />
-                <div>
-                    <Input
-                        name="description"
-                        type='text'
-                        value={formState.description}
-                        onChange={(e) => handleTextChange(e)}
-                        placeholder="New task description..."
-                    />
-                    <Input
-                        name="duedate"
-                        type='date'
-                        value={formState.duedate}
-                        onChange={(e) => handleTextChange(e)}
-                        placeholder="Select due date"
-                    />
-                    <Button
-                        buttonText={"Create a task"}
-                        onClick={() => dispatch({ type: 'add' }, formState)}></Button>
-                </div>
+                <Input
+                    name="description" placeholder="New task description..." icon={faTasks}
+                    onChange={(e) => handleTextChange(e)} />
+                <Input
+                    name="duedate" type='date' placeholder="Select due date" icon={faCalendarAlt}
+                    onChange={(e) => handleTextChange(e)} />
+                <Button
+                    buttonText={"Create a task"}
+                    onClick={() => dispatch({ type: 'add' }, formState)}></Button>
                 <Line />
                 <Center V H>
                     <MyTable>

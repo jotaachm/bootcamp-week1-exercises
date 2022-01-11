@@ -12,9 +12,9 @@ export const StyledNav = styled.div`
 `
 export const StyledLink = styled(Link)`
     text-decoration: none;
-    background-color: ${({ theme: { colors } }) => colors.strongCyan};
+    background-color: ${({ theme: { colors } }) => colors.persianGreen};
     padding: 15px;
-    border-radius: 30px;
+    border-radius: 15px;
     text-align: center;
     transition: all 200ms;
 
@@ -27,6 +27,8 @@ export const StyledLink = styled(Link)`
     }
 `
 export const NavTitle = styled.h1`
-    color: ${({ theme: { colors } }) => colors.strongCyan};
+font-family: 'Courier New', Courier, monospace;
+    color: white;
     text-transform: uppercase;
+    text-align: center;
 `
